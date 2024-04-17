@@ -19,6 +19,7 @@ properties:
   ########################################
   resources:
     ### Install Windows Features - VirtualMachinePlatform
+    ### [Bug] Fails on Windows Client
     ### -------------------------------------
     - resource: PSDscResources/WindowsFeature
       directives:
@@ -28,6 +29,7 @@ properties:
         ensure: present
 
     ### Install WSL
+    ### [Bug] Fails on Windows Client 
     ### -------------------------------------
     - resource: PSDscResources/WindowsFeature
       directives:
