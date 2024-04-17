@@ -28,6 +28,26 @@ properties:
       settings:
         Ensure: Present
 
+    ### Show file extensions
+    ### -------------------------------------
+    - resource: Microsoft.Windows.Developer/WindowsExplorer
+      directives:
+        description: Show File Extensions
+        allowPrerelease: true
+      settings:
+        FileExtensions: Show  # Hide
+        HiddenFiles: Show # Hide
+        Ensure: Present
+
+    ### Show hidden files
+    ### -------------------------------------
+    - resource: Microsoft.Windows.Developer/ShowHiddenFiles
+      directives:
+        description: Show hidden files
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
     ### Install Powershell
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
@@ -40,7 +60,6 @@ properties:
         source: winget
 
     ### Install Git
-    ### Requires elevation
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: Git
