@@ -37,16 +37,6 @@ properties:
       settings:
         FileExtensions: Show  # Hide
         HiddenFiles: Show # Hide
-        Ensure: Present
-
-    ### Show hidden files
-    ### -------------------------------------
-    - resource: Microsoft.Windows.Developer/ShowHiddenFiles
-      directives:
-        description: Show hidden files
-        allowPrerelease: true
-      settings:
-        Ensure: Present
 
     ### Install Powershell
     ### -------------------------------------
