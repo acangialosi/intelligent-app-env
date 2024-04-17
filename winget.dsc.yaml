@@ -60,7 +60,6 @@ properties:
         source: winget
 
     ### Install Node.js
-    ### Requires elevation
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: nodejs
@@ -73,7 +72,7 @@ properties:
         ensure: Present
 
     ### Install Python 3.11
-    ### Requires elevation
+    ### Requires elevation.
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: python311
@@ -108,10 +107,10 @@ properties:
       directives:
         description: Install Python Extension for VS Code
       settings:
-        GetScript: |
-          return $false
         SetScript: |
           code --install-extension ms-python.python
+        GetScript: |
+          return $false
         TestScript: |
-          return $true
+          return $false
   configurationVersion: 0.2.0
