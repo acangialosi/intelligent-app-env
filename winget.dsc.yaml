@@ -21,7 +21,6 @@ properties:
     ### Enable: Developer Mode
     ### -------------------------------------
     - resource: Microsoft.Windows.Developer/DeveloperMode
-      id: DeveloperMode
       directives:
         description: Enable Developer Mode
         allowPrerelease: true
@@ -41,7 +40,7 @@ properties:
     ### Install Powershell
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: Powershell
+      id: powershell
       directives:
         description: Install Powershell
         allowPrerelease: true
@@ -52,13 +51,39 @@ properties:
     ### Install Git
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: Git
+      id: git
       directives:
         description: Install Git
         allowPrerelease: true
       settings:
         id: Git.Git
         source: winget
+
+    ### Install Node.js
+    ### Requires elevation
+    ### -------------------------------------
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: nodejs
+      directives:
+        description: Install nodejs
+        allowPrerelease: true
+      settings:
+        id: OpenJS.NodeJS
+        source: winget
+        ensure: Present
+
+    ### Install Python 3.11
+    ### Requires elevation
+    ### -------------------------------------
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: python311
+      directives:
+        description: Install Python 3.11
+        allowPrerelease: true
+      settings:
+        id: Python.Python.3.11
+        source: winget
+        ensure: Present
 
     ### Install Microsoft Visual Studio Code
     ### -------------------------------------
@@ -72,17 +97,21 @@ properties:
         source: winget
         ensure: Present
 
-    ### Install Python 3.11
-    ### Requires elevation.
+    ### Install VS Code Extension - MS Python
+    ### [Bug] Fails if VS Code is not already installed. 
     ### -------------------------------------
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: Python311
+    - resource: PSDscResources/Script
+      id: VSCodemspython
+      dependsOn:
+        - python311
+        - vscode
       directives:
-        description: Install Python 3.11
-        allowPrerelease: true
+        description: Install Python Extension for VS Code
       settings:
-        id: Python.Python.3.11
-        source: winget
-        ensure: Present
-
+        GetScript: |
+          return $false
+        SetScript: |
+          code --install-extension ms-python.python
+        TestScript: |
+          return $true
   configurationVersion: 0.2.0
