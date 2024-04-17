@@ -28,26 +28,19 @@ properties:
       settings:
         Ensure: Present
 
-    ### Show file extensions
+    ### Install Powershell
     ### -------------------------------------
-    - resource: Microsoft.Windows.Developer/HideFileExtensions
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Powershell
       directives:
-        description: Show File Extensions
+        description: Install Powershell
         allowPrerelease: true
       settings:
-        Ensure: Absent
+        id: Microsoft.PowerShell
+        source: winget
 
-    ### Show hidden files
-    ### -------------------------------------
-    - resource: Microsoft.Windows.Developer/ShowHiddenFiles
-      directives:
-        description: Show hidden files
-        allowPrerelease: true
-      settings:
-        Ensure: Present
-
-
-    ### Install Microsoft Visual Studio Code
+    ### Install Git
+    ### Requires elevation
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       id: Git
@@ -61,7 +54,7 @@ properties:
     ### Install Microsoft Visual Studio Code
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-      id: Python311
+      id: vscode
       directives:
         description: Install Microsoft Visual Studio Code
         allowPrerelease: true
@@ -81,5 +74,5 @@ properties:
         id: Python.Python.3.11
         source: winget
         ensure: Present
-        
+
   configurationVersion: 0.2.0
